@@ -1,38 +1,69 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { BarChart3, Map, Gamepad2, ShoppingCart, TrendingUp } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
-const dashboards = [
+import dashboard1 from "@/assets/dashboard-1.png";
+import dashboard2 from "@/assets/dashboard-2.png";
+import dashboard3 from "@/assets/dashboard-3.png";
+import dashboard4 from "@/assets/dashboard-4.png";
+
+const dashboardImages = [
   {
-    title: "Geographic Performance Analysis",
-    description: "Multi-platform paid media analytics combining Google Ads, YouTube, and Facebook data with geographic drilldowns from region to city level.",
-    icon: Map,
-    features: ["Map-based visualizations", "Regional budget optimization", "Cross-platform attribution"],
-  },
-  {
-    title: "Gaming Analytics (GA4 + Firebase)",
-    description: "Unified gaming performance view combining acquisition, engagement, monetization, and retention metrics for product and growth teams.",
-    icon: Gamepad2,
-    features: ["Install vs uninstall analysis", "Cohort retention tracking", "Revenue attribution"],
-  },
-  {
-    title: "LTV & Churn Analysis",
-    description: "Customer lifetime value and churn analytics integrating Shopify orders with Recharge subscriptions for e-commerce growth teams.",
-    icon: TrendingUp,
-    features: ["Subscription vs one-time LTV", "Monthly cohort analysis", "Product-level insights"],
-  },
-  {
+    src: dashboard1,
     title: "Service Fulfilment Dashboard",
-    description: "Real-time operational monitoring for service delivery with heatmap visualization across cities and service categories.",
-    icon: BarChart3,
-    features: ["Heatmap performance view", "City-level comparisons", "Weekly trend analysis"],
+    description: "Heatmap visualization for service delivery monitoring across cities",
+  },
+  {
+    src: dashboard2,
+    title: "LTV Dashboard",
+    description: "Customer lifetime value analytics with monthly trend comparisons",
+  },
+  {
+    src: dashboard3,
+    title: "Analytics Report",
+    description: "Multi-metric performance tracking with trend analysis",
+  },
+  {
+    src: dashboard4,
+    title: "Geographic Analytics",
+    description: "Regional performance insights with interactive visualizations",
   },
 ];
 
 const Dashboards = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Auto-play slideshow
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [api]);
 
   return (
     <section id="dashboards" className="py-24 md:py-32 relative bg-card/30">
@@ -52,44 +83,70 @@ const Dashboards = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {dashboards.map((dashboard, index) => (
-            <motion.div
-              key={dashboard.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group p-6 rounded-xl bg-background border border-border hover:border-accent/40 transition-all duration-300"
-              style={{
-                boxShadow: 'var(--shadow-card)',
-              }}
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 rounded-lg bg-accent/10 border border-accent/20 group-hover:glow-accent transition-all">
-                  <dashboard.icon className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-lg font-semibold group-hover:text-accent transition-colors">
-                  {dashboard.title}
-                </h3>
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-5xl mx-auto"
+        >
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {dashboardImages.map((dashboard, index) => (
+                <CarouselItem key={index}>
+                  <div className="relative group">
+                    <div className="relative overflow-hidden rounded-xl border border-primary/30 shadow-2xl">
+                      <img
+                        src={dashboard.src}
+                        alt={dashboard.title}
+                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Title on hover */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="text-xl font-bold text-foreground mb-1">
+                          {dashboard.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">
+                          {dashboard.description}
+                        </p>
+                      </div>
+                    </div>
 
-              <p className="text-muted-foreground mb-4">
-                {dashboard.description}
-              </p>
+                    {/* Glow effect */}
+                    <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity -z-10" />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            <CarouselPrevious className="left-2 md:-left-12 bg-background/80 border-primary/30 hover:bg-primary hover:text-primary-foreground" />
+            <CarouselNext className="right-2 md:-right-12 bg-background/80 border-primary/30 hover:bg-primary hover:text-primary-foreground" />
+          </Carousel>
 
-              <div className="flex flex-wrap gap-2">
-                {dashboard.features.map((feature) => (
-                  <span
-                    key={feature}
-                    className="px-3 py-1.5 text-sm rounded-md bg-secondary/60 text-muted-foreground"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          {/* Dots indicator */}
+          <div className="flex justify-center gap-2 mt-6">
+            {dashboardImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  current === index
+                    ? "bg-primary w-6"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
