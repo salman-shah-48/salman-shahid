@@ -26,8 +26,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-6"
+          className="mb-4"
         >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold gradient-text mb-4">
+            Salman Shah
+          </h2>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-muted-foreground">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             Data Engineer & Analytics Specialist
