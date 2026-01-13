@@ -5,7 +5,7 @@ import { useRef } from "react";
 const skillCategories = [
   {
     title: "Cloud Platforms",
-    skills: ["AWS (EC2, S3, Redshift, MWAA)", "GCP (BigQuery, Cloud Run, GCS)", "IAM & Security"],
+    skills: ["AWS (EC2, Lambda, S3, MWAA, IAM, DMS, SNS)", "GCP (Compute Engine, Dataflow, Cloud Run, GCS, Composer, Pub/Sub, IAM)"],
   },
   {
     title: "Data Engineering",
@@ -13,7 +13,7 @@ const skillCategories = [
   },
   {
     title: "Databases & Warehouses",
-    skills: ["Amazon Redshift", "Google BigQuery", "PostgreSQL", "Materialized Views"],
+    skills: ["Amazon Redshift", "Google BigQuery", "PostgreSQL", "MS SQL", "MySQL"],
   },
   {
     title: "Analytics & BI",
