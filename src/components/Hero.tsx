@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -50,10 +50,12 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-balance"
+          className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 text-balance"
         >
-          Specializing in telecom analytics, cloud data pipelines, and business intelligence. 
-          Transforming complex data into actionable insights across AWS, GCP, and modern BI platforms.
+          I specialize in analytics across Telecom, Gaming, Marketing, E-commerce, and Healthcare, 
+          transforming complex data into actionable insights using AWS and GCP with modern BI platforms 
+          such as Looker Studio, Tableau, and Power BI. I bring 4+ years of hands-on experience in 
+          Data Engineering and Analytics, delivering scalable, business-driven solutions.
         </motion.p>
 
         <motion.div
@@ -73,36 +75,6 @@ const Hero = () => {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg glass hover:bg-secondary/80 transition-all"
           >
             Get in Touch
-          </a>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex items-center justify-center gap-6"
-        >
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full glass hover:bg-secondary/80 transition-all group"
-          >
-            <Github className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full glass hover:bg-secondary/80 transition-all group"
-          >
-            <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-          </a>
-          <a
-            href="mailto:contact@example.com"
-            className="p-3 rounded-full glass hover:bg-secondary/80 transition-all group"
-          >
-            <Mail className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
           </a>
         </motion.div>
       </div>

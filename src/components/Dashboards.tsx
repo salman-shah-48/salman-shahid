@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -19,22 +18,22 @@ const dashboardImages = [
   {
     src: dashboard1,
     title: "Service Fulfilment Dashboard",
-    description: "Heatmap visualization for service delivery monitoring across cities",
+    description: "Heatmap visualization for service delivery monitoring across cities. This dashboard provides real-time tracking of service completion rates, identifying bottlenecks and optimizing resource allocation for maximum efficiency.",
   },
   {
     src: dashboard2,
     title: "LTV Dashboard",
-    description: "Customer lifetime value analytics with monthly trend comparisons",
+    description: "Customer lifetime value analytics with monthly trend comparisons. Deep dive into customer segmentation, revenue forecasting, and churn prediction to maximize long-term customer relationships and profitability.",
   },
   {
     src: dashboard3,
     title: "Analytics Report",
-    description: "Multi-metric performance tracking with trend analysis",
+    description: "Multi-metric performance tracking with trend analysis. Comprehensive overview of key business indicators, enabling data-driven decision making through interactive visualizations and actionable insights.",
   },
   {
     src: dashboard4,
     title: "Geographic Analytics",
-    description: "Regional performance insights with interactive visualizations",
+    description: "Regional performance insights with interactive visualizations. Geographic distribution analysis for market penetration, regional sales performance, and location-based strategic planning.",
   },
 ];
 
@@ -52,17 +51,6 @@ const Dashboards = () => {
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap());
     });
-  }, [api]);
-
-  // Auto-play slideshow
-  useEffect(() => {
-    if (!api) return;
-
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 4000);
-
-    return () => clearInterval(interval);
   }, [api]);
 
   return (
@@ -87,7 +75,7 @@ const Dashboards = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-5xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <Carousel
             setApi={setApi}
@@ -100,29 +88,53 @@ const Dashboards = () => {
             <CarouselContent>
               {dashboardImages.map((dashboard, index) => (
                 <CarouselItem key={index}>
-                  <div className="relative group">
-                    <div className="relative overflow-hidden rounded-xl border border-primary/30 shadow-2xl">
-                      <img
-                        src={dashboard.src}
-                        alt={dashboard.title}
-                        className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {/* Overlay gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Title on hover */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 className="text-xl font-bold text-foreground mb-1">
-                          {dashboard.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm">
-                          {dashboard.description}
-                        </p>
+                  <div className="grid md:grid-cols-2 gap-8 items-center p-4">
+                    {/* Description Side */}
+                    <div className="order-2 md:order-1 space-y-6">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs text-primary">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        Dashboard {index + 1} of {dashboardImages.length}
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+                        {dashboard.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {dashboard.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {["Analytics", "Real-time", "Interactive"].map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 rounded-full glass text-xs text-muted-foreground"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
 
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity -z-10" />
+                    {/* Dashboard Image Side */}
+                    <div className="order-1 md:order-2 relative group">
+                      <div className="relative overflow-hidden rounded-xl border border-primary/30 shadow-2xl aspect-[4/3]">
+                        <img
+                          src={dashboard.src}
+                          alt={dashboard.title}
+                          className="w-full h-full object-cover blur-sm transition-all duration-500 group-hover:blur-md"
+                        />
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-background/30 group-hover:bg-background/40 transition-all duration-300" />
+                        
+                        {/* Lock indicator */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="px-4 py-2 rounded-lg glass text-muted-foreground text-sm">
+                            Preview
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Glow effect */}
+                      <div className="absolute -inset-1 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity -z-10" />
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
