@@ -4,10 +4,16 @@ import { ArrowLeft, ExternalLink, Target, Wrench, Users, TrendingUp } from "luci
 import { getProjectById } from "@/data/projects";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const project = getProjectById(id || "");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!project) {
     return (
@@ -173,12 +179,14 @@ const ProjectDetail = () => {
               <p className="text-muted-foreground mb-6">
                 Let's discuss how I can help with your data engineering challenges.
               </p>
-              <Link
-                to="/#contact"
+              <a
+                href="https://www.upwork.com/freelancers/~01b7c271b3c10b02a9"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-all glow-primary"
               >
                 Get in Touch
-              </Link>
+              </a>
             </motion.div>
           </div>
         </section>

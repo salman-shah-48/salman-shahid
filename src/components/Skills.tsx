@@ -5,27 +5,31 @@ import { useRef } from "react";
 const skillCategories = [
   {
     title: "Cloud Platforms",
-    skills: ["AWS (EC2, Lambda, S3, MWAA, IAM, DMS, SNS)", "GCP (Compute Engine, Dataflow, Cloud Run, GCS, Composer, Pub/Sub, IAM)"],
-  },
-  {
-    title: "Data Engineering",
-    skills: ["Apache Airflow", "Apache Spark", "Apache NiFi", "Fivetran", "AWS DMS"],
+    skills: ["AWS (EC2, Redshift, Lambda, S3, MWAA, IAM, DMS, SNS)", "GCP (Compute Engine, BigQuery, Dataflow, Cloud Run, GCS, Composer, Pub/Sub, IAM)"],
   },
   {
     title: "Databases & Warehouses",
-    skills: ["Amazon Redshift", "Google BigQuery", "PostgreSQL", "MS SQL", "MySQL"],
+    skills: ["Amazon Redshift", "Google BigQuery", "Snowflake", "PostgreSQL", "MS SQL", "MySQL"],
+  },
+  {
+    title: "Data Engineering",
+    skills: ["Apache Airflow", "Apache NiFi", "Apache Spark", "DBT", "Databricks", "ETL/ELT Pipelines", "Data Modeling"],
   },
   {
     title: "Analytics & BI",
-    skills: ["Looker Studio", "Tableau", "Plotly", "Advanced SQL"],
+    skills: ["Looker Studio", "Looker (LookML)", "Tableau", "Power BI", "Plotly", "MS Office"],
   },
   {
     title: "Programming",
-    skills: ["Python", "SQL", "Data Modeling", "ETL/ELT Pipelines"],
+    skills: ["Python", "SQL", "AppScript", "JavaScript"],
   },
   {
     title: "Domain Expertise",
-    skills: ["Telecom Analytics", "E-commerce", "Gaming Analytics", "Marketing Attribution"],
+    skills: ["Telecom Analytics", "E-commerce", "Meta Ads", "YouTube Ads", "Shopify", "Klaviyo", "Recharge", "GA4", "Google Ads", "Gaming Analytics", "Website Analytics"],
+  },
+  {
+    title: "3rd Party Tools",
+    skills: ["Fivetran", "Stitch", "Make", "Zapier", "n8n"],
   },
 ];
 
